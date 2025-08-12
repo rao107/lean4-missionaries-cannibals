@@ -1,0 +1,10 @@
+name = "missionaries-cannibals"
+version = "0.1.0"
+defaultTargets = ["missionaries-cannibals"]
+
+[[lean_lib]]
+name = "MissionariesCannibals"
+
+[[lean_exe]]
+name = "missionaries-cannibals"
+root = "Main"
