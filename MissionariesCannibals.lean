@@ -127,7 +127,7 @@ theorem step10_to_goal : step step10 goal := by
   apply prove_step step10_valid goal_valid
   unfold valid_move step10 goal; simp
 
-theorem solution_exists : reachable init goal := by
+theorem init_to_goal : reachable init goal := by
   apply reachable.trans; exact init_to_step1
   apply reachable.trans; exact step1_to_step2
   apply reachable.trans; exact step2_to_step3
