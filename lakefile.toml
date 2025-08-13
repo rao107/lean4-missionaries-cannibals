@@ -8,3 +8,7 @@ name = "MissionariesCannibals"
 [[lean_exe]]
 name = "missionaries-cannibals"
 root = "Main"
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
