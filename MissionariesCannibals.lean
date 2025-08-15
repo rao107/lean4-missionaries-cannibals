@@ -72,28 +72,16 @@ macro "validateMove " s:ident t:ident : tactic =>
 macro "validateStep " s:ident t:ident : tactic =>
   `(tactic| try unfold step; constructorm* _ ∧ _, _ ∧ _; validateState $s; validateState $t; validateMove $s $t)
 
-theorem init_to_step1 : step init step1 := by validateStep init step1
-theorem step1_to_step2 : step step1 step2 := by validateStep step1 step2
-theorem step2_to_step3 : step step2 step3 := by validateStep step2 step3
-theorem step3_to_step4 : step step3 step4 := by validateStep step3 step4
-theorem step4_to_step5 : step step4 step5 := by validateStep step4 step5
-theorem step5_to_step6 : step step5 step6 := by validateStep step5 step6
-theorem step6_to_step7 : step step6 step7 := by validateStep step6 step7
-theorem step7_to_step8 : step step7 step8 := by validateStep step7 step8
-theorem step8_to_step9 : step step8 step9 := by validateStep step8 step9
-theorem step9_to_step10 : step step9 step10 := by validateStep step9 step10
-theorem step10_to_goal : step step10 goal := by validateStep step10 goal
-
 theorem init_to_goal : reachable init goal := by
-  apply reachable.trans; exact init_to_step1
-  apply reachable.trans; exact step1_to_step2
-  apply reachable.trans; exact step2_to_step3
-  apply reachable.trans; exact step3_to_step4
-  apply reachable.trans; exact step4_to_step5
-  apply reachable.trans; exact step5_to_step6
-  apply reachable.trans; exact step6_to_step7
-  apply reachable.trans; exact step7_to_step8
-  apply reachable.trans; exact step8_to_step9
-  apply reachable.trans; exact step9_to_step10
-  apply reachable.trans; exact step10_to_goal
+  apply reachable.trans (s := init) (u := step1) (t := goal); validateStep init step1
+  apply reachable.trans (s := step1) (u := step2) (t := goal); validateStep step1 step2
+  apply reachable.trans (s := step2) (u := step3) (t := goal); validateStep step2 step3
+  apply reachable.trans (s := step3) (u := step4) (t := goal); validateStep step3 step4
+  apply reachable.trans (s := step4) (u := step5) (t := goal); validateStep step4 step5
+  apply reachable.trans (s := step5) (u := step6) (t := goal); validateStep step5 step6
+  apply reachable.trans (s := step6) (u := step7) (t := goal); validateStep step6 step7
+  apply reachable.trans (s := step7) (u := step8) (t := goal); validateStep step7 step8
+  apply reachable.trans (s := step8) (u := step9) (t := goal); validateStep step8 step9
+  apply reachable.trans (s := step9) (u := step10) (t := goal); validateStep step9 step10
+  apply reachable.trans (s := step10) (u := goal) (t := goal); validateStep step10 goal
   exact reachable.refl goal
